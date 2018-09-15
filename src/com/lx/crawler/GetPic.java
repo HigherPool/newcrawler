@@ -38,7 +38,6 @@ public class GetPic {
 	HttpClient httpClient = HttpClients.createDefault();
 	InputStream in = null;
 	OutputStream out = null;
-	int index = 0;
 
 	public void getPic(int ID, String path) {
 
@@ -95,13 +94,12 @@ public class GetPic {
 							in = en.getContent();
 
 							// 用apache的字符串工具得到文件名
-							index++;
-							String name = StringUtils.substringAfterLast(pic, ".");
-							out = new FileOutputStream(new File(file, index + "." +name));
+							String name = StringUtils.substringAfterLast(pic, "/");
+							out = new FileOutputStream(new File(file, name));
 
 							// 用apache的IO流工具将远程资源复制到本地
 							IOUtils.copy(in, out);
-							System.out.println("图片：" + index + "完成！");
+							System.out.println("图片完成！");
 							System.out.println(pic);
 
 						} catch (ClientProtocolException e) {
@@ -135,7 +133,7 @@ public class GetPic {
 	}
 
 	/**
-	 * 得到所有100个回答的URL
+	 * 得到所有50个回答的URL
 	 * 
 	 * @param URL
 	 * @return
